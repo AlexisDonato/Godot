@@ -39,11 +39,9 @@ __meta__ = {
 }
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-rotation = 1.5708
 scale = Vector2( 0.75, 0.75 )
 frames = SubResource( 1 )
 animation = "fly"
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
