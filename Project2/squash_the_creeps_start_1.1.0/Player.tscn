@@ -1,11 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://art/player.glb" type="PackedScene" id=1]
+[ext_resource path="res://Player.cs" type="Script" id=2]
 
 [sub_resource type="SphereShape" id=1]
 radius = 1.04447
 
+[sub_resource type="CylinderShape" id=2]
+
 [node name="Player" type="KinematicBody"]
+collision_mask = 6
+script = ExtResource( 2 )
 
 [node name="Pivot" type="Spatial" parent="."]
 
@@ -15,3 +20,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.626583, 0 )
 shape = SubResource( 1 )
+
+[node name="MobDetector" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="MobDetector"]
+shape = SubResource( 2 )
