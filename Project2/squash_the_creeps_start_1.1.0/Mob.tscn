@@ -23,4 +23,4 @@ shape = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
 aabb = AABB( -1.15533, -0.646841, -1.96065, 2.31067, 1.28782, 3.9213 )
 
-[connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]
+[connection signal="screen_exited" from="VisibilityNotifier" to="." method="OnVisibilityNotifieScreeExited"]

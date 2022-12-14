@@ -16,6 +16,11 @@ public class Mob : KinematicBody
     [Signal]
     public delegate void Squashed();
 
+    // Emitted when the player was hit by a mob.
+    [Signal]
+    public delegate void Hit();
+
+
     private Vector3 _velocity = Vector3.Zero;
 
     public override void _PhysicsProcess(float delta)
@@ -52,6 +57,19 @@ public class Mob : KinematicBody
         EmitSignal(nameof(Squashed));
         QueueFree();
     }
+
+    private void Die()
+    {
+        EmitSignal(nameof(Hit));
+        QueueFree();
+    }
+
+    // We also specified this function name in PascalCase in the editor's connection window
+    public void OnMobDetectorBodyEntered(Node body)
+    {
+        Die();
+    }
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
