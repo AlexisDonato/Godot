@@ -18,6 +18,10 @@ public class Player : KinematicBody
     [Export]
     public int BounceImpulse = 16;
 
+    // Emitted when the player was hit by a mob.
+    [Signal]
+    public delegate void Hit();
+
 
     private Vector3 _velocity = Vector3.Zero;
 
@@ -56,6 +60,17 @@ public class Player : KinematicBody
             GetNode<Spatial>("Pivot").LookAt(Translation + direction, Vector3.Up);
         }
 
+        if (direction != Vector3.Zero)
+        {
+            // ...
+            GetNode<AnimationPlayer>("AnimationPlayer").PlaybackSpeed = 4;
+        }
+        else
+        {
+            GetNode<AnimationPlayer>("AnimationPlayer").PlaybackSpeed = 1;
+        }
+    
+
         // Ground velocity
         _velocity.x = direction.x * speed;
         _velocity.z = direction.z * speed;
@@ -85,9 +100,25 @@ public class Player : KinematicBody
                 }
             }
         }
+
+        var pivot = GetNode<Spatial>("Pivot");
+        pivot.Rotation = new Vector3(Mathf.Pi / 6f * _velocity.y / JumpImpulse, pivot.Rotation.y, pivot.Rotation.z);
     }
-// Called when the node enters the scene tree for the first time.
-public override void _Ready()
+
+    private void Die()
+    {
+        EmitSignal(nameof(Hit));
+        QueueFree();
+    }
+
+    // We also specified this function name in PascalCase in the editor's connection window
+    public void OnMobDetectorBodyEntered(Node body)
+    {
+        Die();
+    }
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
     {
 
     }

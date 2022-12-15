@@ -1,8 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Mob.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ScoreLabel.cs">
     <Files>
-      <File FileName="Player.cs" Line="1" Column="1" />
-      <File FileName="Mob.cs" Line="1" Column="1" />
+      <File FileName="Player.cs" Line="21" Column="49" />
+      <File FileName="Mob.cs" Line="18" Column="1" />
+      <File FileName="Main.cs" Line="15" Column="1" />
+      <File FileName="ScoreLabel.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -10,7 +12,7 @@
           <Node name="Squash the Creeps (3D)" expanded="True">
             <Node name="Squash the Creeps (3D)" expanded="True">
               <Node name="Dependencies" expanded="True" />
-              <Node name="Mob.cs" selected="True" />
+              <Node name="ScoreLabel.cs" selected="True" />
             </Node>
           </Node>
         </State>

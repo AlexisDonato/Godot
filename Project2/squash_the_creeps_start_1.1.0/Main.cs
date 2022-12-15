@@ -17,6 +17,7 @@ public class Main : Node
     public override void _Ready()
     {
         GD.Randomize();
+        GetNode<Control>("UserInterface/Retry").Hide();
     }
 
 
@@ -38,10 +39,23 @@ public class Main : Node
 
         AddChild(mob);
 
-        //  // Called every frame. 'delta' is the elapsed time since the previous frame.
-        //  public override void _Process(float delta)
-        //  {
-        //      
-        //  }
+        // We connect the mob to the score label to update the score upon squashing one.
+        mob.Connect(nameof(Mob.Squashed), GetNode<ScoreLabel>("UserInterface/ScoreLabel"), nameof(ScoreLabel.OnMobSquashed));
+    }
+
+    // We also specified this function name in PascalCase in the editor's connection window
+    public void OnPlayerHit()
+    {
+        GetNode<Timer>("MobTimer").Stop();
+        GetNode<Control>("UserInterface/Retry").Show();
+    }
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (@event.IsActionPressed("ui_accept") && GetNode<Control>("UserInterface/Retry").Visible)
+        {
+            // This restarts the current scene.
+            GetTree().ReloadCurrentScene();
+        }
     }
 }

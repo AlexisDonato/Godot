@@ -5,6 +5,10 @@ public class Mob : KinematicBody
 {
     // Don't forget to rebuild the project so the editor knows about the new export variable.
 
+    // Emitted when the played jumped on the mob.
+    [Signal]
+    public delegate void Squashed();
+
     // Minimum speed of the mob in meters per second
     [Export]
     public int MinSpeed = 10;
@@ -12,13 +16,6 @@ public class Mob : KinematicBody
     // Maximum speed of the mob in meters per second
     public int MaxSpeed = 18;
 
-    // Emitted when the played jumped on the mob.
-    [Signal]
-    public delegate void Squashed();
-
-    // Emitted when the player was hit by a mob.
-    [Signal]
-    public delegate void Hit();
 
 
     private Vector3 _velocity = Vector3.Zero;
@@ -44,13 +41,10 @@ public class Mob : KinematicBody
 
         // We then rotate the vector based on the mob's Y rotation to move in the direction it's looking.
         _velocity = _velocity.Rotated(Vector3.Up, Rotation.y);
+
+        GetNode<AnimationPlayer>("AnimationPlayer").PlaybackSpeed = randomSpeed / MinSpeed;
     }
 
-    // We also specified this function name in PascalCase in the editor's connection window
-    public void OnVisibilityNotifierScreenExited()
-    {
-        QueueFree();
-    }
 
     public void Squash()
     {
@@ -58,16 +52,10 @@ public class Mob : KinematicBody
         QueueFree();
     }
 
-    private void Die()
-    {
-        EmitSignal(nameof(Hit));
-        QueueFree();
-    }
-
     // We also specified this function name in PascalCase in the editor's connection window
-    public void OnMobDetectorBodyEntered(Node body)
+    public void OnVisibilityNotifierScreenExited()
     {
-        Die();
+        QueueFree();
     }
 
     // Called when the node enters the scene tree for the first time.
